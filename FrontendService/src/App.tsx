@@ -5,18 +5,26 @@ import { useState } from 'react';
 import './App.css';
 
 const labels = [
-  { text: 'HOME', degree: -70 },
-  { text: 'ISSUES', degree: -90 },
-  { text: 'PROJECTS', degree: -110 },
+  { text: 'ISSUES', degree: -70 },
+  { text: 'PROJECTS', degree: -90 },
+  { text: 'EVENTS', degree: -110 },
 
-  { text: 'GALLERY', degree: 70 },
-  { text: 'EVENTS', degree: 90 },
+  { text: 'SELECTED', degree: 70 },
+  { text: 'NEURAL', degree: 90 },
   { text: 'ABOUT', degree: 110 },
 ];
 
 function App() {
 
     const [rotation, setRotation] = useState(0);
+
+    const rotateTo = (target: number) => {
+        setRotation((current) => {
+            const difference = ((target - current + 540) % 360) - 180;
+
+            return current + difference;
+        });
+    };
 
     return (
         <div className="App">
@@ -28,7 +36,7 @@ function App() {
                     <div
                         key={label.text}
                         className={`label label-${index + 1}`}
-                        onClick={() => setRotation(label.degree)}
+                        onClick={() => rotateTo(label.degree)}
                     >
                         <Text
                         style={{
